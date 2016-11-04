@@ -49,6 +49,7 @@ library
     , call-stack
     , filepath
     , directory
+    , pretty-show
     , array
   exposed-modules:
       Test.Hspec.Meta
@@ -67,6 +68,7 @@ library
       Test.Hspec.Core.Formatters
       Test.Hspec.Core.Formatters.Diff
       Test.Hspec.Core.Formatters.Internal
+      Test.Hspec.Core.Formatters.Pretty
       Test.Hspec.Core.Hooks
       Test.Hspec.Core.Options
       Test.Hspec.Core.QuickCheck
@@ -104,6 +106,7 @@ executable hspec-meta-discover
     , call-stack
     , filepath
     , directory
+    , pretty-show
     , array
     , filepath
     , directory
