@@ -46,6 +46,7 @@ library
     , call-stack
     , directory
     , filepath
+    , pretty-show >= 1.6
     , array
   exposed-modules:
       Test.Hspec.Core.Spec
@@ -61,6 +62,7 @@ library
       Test.Hspec.Core.FailureReport
       Test.Hspec.Core.Formatters.Diff
       Test.Hspec.Core.Formatters.Internal
+      Test.Hspec.Core.Formatters.Pretty
       Test.Hspec.Core.Options
       Test.Hspec.Core.QuickCheckUtil
       Test.Hspec.Core.Runner.Eval
@@ -97,6 +99,7 @@ test-suite spec
     , call-stack
     , directory
     , filepath
+    , pretty-show >= 1.6
     , array
     , hspec-meta >= 2.3.2
     , silently >= 1.2.4
@@ -110,6 +113,7 @@ test-suite spec
       Test.Hspec.Core.Formatters
       Test.Hspec.Core.Formatters.Diff
       Test.Hspec.Core.Formatters.Internal
+      Test.Hspec.Core.Formatters.Pretty
       Test.Hspec.Core.Hooks
       Test.Hspec.Core.Options
       Test.Hspec.Core.QuickCheck

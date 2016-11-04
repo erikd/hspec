@@ -35,6 +35,7 @@ dependencies:
   - call-stack
   - directory
   - filepath
+  - pretty-show >= 1.6
 
   - array # for Diff
 

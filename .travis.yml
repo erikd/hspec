@@ -32,6 +32,7 @@ before_install:
   - ghc --version
   - cabal --version
   - travis_retry cabal update
+  - cabal install happy
   - if [ -n "$QC" ]; then cabal install $QC; fi
   - if [ -n "$HU" ]; then cabal install $HU; fi
 

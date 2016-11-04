@@ -99,6 +99,7 @@ import Test.Hspec.Core.Formatters.Internal (
   )
 
 import           Test.Hspec.Core.Formatters.Diff
+import           Test.Hspec.Core.Formatters.Pretty
 
 silent :: Formatter
 silent = Formatter {
@@ -203,7 +204,7 @@ defaultFailedFormatter = do
         Right (ExpectedButGot preface expected actual) -> do
           mapM_ indent preface
 
-          let chunks = diff expected actual
+          let chunks = diff (pretty expected) (pretty actual)
 
           withFailColor $ write (indentation ++ "expected: ")
           forM_ chunks $ \chunk -> case chunk of
