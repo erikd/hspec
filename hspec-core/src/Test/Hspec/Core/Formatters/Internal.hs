@@ -46,6 +46,7 @@ interpret = interpretWith Environment {
 , environmentWithInfoColor = withInfoColor
 , environmentExtraChunk = extraChunk
 , environmentMissingChunk = missingChunk
+, environmentLiftIO = liftIO
 }
 
 -- | A lifted version of `Control.Monad.Trans.State.gets`

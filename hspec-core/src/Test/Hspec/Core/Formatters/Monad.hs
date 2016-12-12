@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE RecordWildCards #-}
@@ -41,6 +42,7 @@ import           Test.Hspec.Core.Compat
 
 import           System.IO (Handle)
 import           Control.Exception
+import           Control.Monad.IO.Class
 
 import           Test.Hspec.Core.Formatters.Free
 
@@ -101,9 +103,13 @@ data FormatF next =
   | forall a. WithInfoColor (FormatM a) (a -> next)
   | ExtraChunk String next
   | MissingChunk String next
+  | forall a. LiftIO (IO a) (a -> next)
 deriving instance Functor FormatF
 
 type FormatM = Free FormatF
+
+instance MonadIO FormatM where
+  liftIO s = liftF (LiftIO s id)
 
 data Environment m = Environment {
   environmentGetSuccessCount :: m Int
@@ -120,6 +126,7 @@ data Environment m = Environment {
 , environmentWithInfoColor :: forall a. m a -> m a
 , environmentExtraChunk :: String -> m ()
 , environmentMissingChunk :: String -> m ()
+, environmentLiftIO :: forall a. IO a -> m a
 }
 
 interpretWith :: forall m a. Monad m => Environment m -> FormatM a -> m a
@@ -143,6 +150,7 @@ interpretWith Environment{..} = go
         WithInfoColor inner next -> environmentWithInfoColor (go inner) >>= go . next
         ExtraChunk s next -> environmentExtraChunk s >> go next
         MissingChunk s next -> environmentMissingChunk s >> go next
+        LiftIO inner next -> environmentLiftIO inner >>= go . next
 
 -- | Get the number of successful examples encountered so far.
 getSuccessCount :: FormatM Int

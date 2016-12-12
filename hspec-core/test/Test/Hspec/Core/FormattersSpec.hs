@@ -72,6 +72,7 @@ environment = Environment {
 , environmentWithInfoColor = \action -> let (a, r) = runWriter action in tell (colorize Info r) >> return a
 , environmentExtraChunk = tell . return . Extra
 , environmentMissingChunk = tell . return . Missing
+, environmentLiftIO = undefined
 }
 
 testSpec :: H.Spec
